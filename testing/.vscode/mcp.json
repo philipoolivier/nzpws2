@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "contoso-playwright": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/scripts/mcp.mjs",
+        "uat"
+      ]
+    }
+  }
+}

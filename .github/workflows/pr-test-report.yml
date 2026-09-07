@@ -1,4 +1,4 @@
-name: PR test report
+name: UAT test report
 
 on:
   pull_request:
@@ -9,19 +9,35 @@ permissions:
 
 jobs:
   test-and-report:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    environment: uat
     runs-on: ubuntu-latest
+    env:
+      UAT_BASE_URL: https://uat.nzpost.co.nz
+      UAT_USERNAME: ${{ secrets.UAT_USERNAME }}
+      UAT_PASSWORD: ${{ secrets.UAT_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Run tests and save output
-        run: |
-          mkdir -p test-output
-          npm test | tee test-output/results.txt
-      - name: Upload test output
+          cache: npm
+          cache-dependency-path: testing/package-lock.json
+      - name: Install UAT test dependencies
+        working-directory: testing
+        run: npm ci
+      - name: Install Chromium
+        working-directory: testing
+        run: npx playwright install --with-deps chromium
+      - name: Run UAT tests
+        working-directory: testing
+        run: npm run test:uat
+      - name: Upload UAT reports
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: test-output
-          path: test-output/results.txt
+          name: uat-test-report
+          path: |
+            testing/playwright-report/
+            testing/test-results/
           retention-days: 7

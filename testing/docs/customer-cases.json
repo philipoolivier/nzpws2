@@ -1,0 +1,8 @@
+[
+  {"id":"U01","topic":"Autocomplete / suggestions","query":"122 kerwyn","expected":"An appropriate suggestion appears and selecting it opens the matching result; exact text to confirm live."},
+  {"id":"U02","topic":"Service filter","query":"Pay a bill","expected":"Only matching service locations remain; removing the filter restores eligible results. Confirm route and seed search."},
+  {"id":"U03","topic":"Invalid address","query":"172863 aksdhj","expected":"No valid address is presented; explain the outcome and remove any stale successful result. Confirm exact UI response."},
+  {"id":"U04","topic":"Private bag","query":"Private Bag 37006, Te Karaka 4042","expected":"The matching private-bag result can be found, preserving its identifying details."},
+  {"id":"U05","topic":"PO box","query":"PO Box 101, Paihia 0247","expected":"The matching PO-box result can be found; postcode 0247 retains its leading zero."},
+  {"id":"U06","topic":"Suburb","query":"Auckland Central, Auckland","expected":"The suburb-level result can be found; do not invent a street address requirement."}
+]

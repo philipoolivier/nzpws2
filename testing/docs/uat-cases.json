@@ -1,0 +1,11 @@
+{
+  "purpose": "Planning only; tests are JavaScript files in tests/uat. No review flags are executed as assertions.",
+  "suite": [
+    "U01",
+    "U02",
+    "U03",
+    "U04",
+    "U05",
+    "U06"
+  ]
+}

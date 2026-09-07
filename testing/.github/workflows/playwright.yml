@@ -1,0 +1,48 @@
+# Template: copy to repository-root .github/workflows/uat-tests.yml.
+# The portable framework stays in testing/.
+# Configure a protected uat environment with required reviewers and secrets.
+# PR code must be reviewed before access to UAT secrets; do not use pull_request_target.
+name: Read-only UAT checks on a pull request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  uat-checks:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    environment: uat
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    env:
+      UAT_BASE_URL: https://uat.nzpost.co.nz
+      UAT_USERNAME: ${{ secrets.UAT_USERNAME }}
+      UAT_PASSWORD: ${{ secrets.UAT_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Build the sample React feature
+        run: npm run build
+      - name: Deploy the sample React feature to UAT
+        run: |
+          # Workshop sample only: replace this with the team's approved deployment command.
+          # Example: npm run deploy:uat
+          echo "Sample deployment stage completed; run the approved UAT deployment here."
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check:uat
+      - run: npm run test:uat
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: uat-test-report
+          path: |
+            testing/playwright-report/
+            testing/test-results/
+          retention-days: 7

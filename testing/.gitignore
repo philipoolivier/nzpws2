@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.local/
+playwright-report/
+test-results/
+docs/private/
+customer-source/
+
+.mcp-output/
+
+.env.txt
+.env.*
+!.env.example

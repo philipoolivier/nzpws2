@@ -1,0 +1,29 @@
+{
+  "name": "contoso-post-qa-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "test:all": "node scripts/run-tests.cjs",
+    "test:uat": "node scripts/run-tests.cjs",
+    "test:uat:headed": "node scripts/run-tests.cjs --headed",
+    "test:tdd": "node --test tdd/*.test.mjs",
+    "report": "playwright show-report",
+    "mcp:setup": "node scripts/register-mcp.mjs",
+    "explore:uat": "node scripts/explore-uat.cjs",
+    "check:uat": "node scripts/check-uat.cjs",
+    "test:case": "node scripts/run-tests.cjs --case",
+    "test:case:headed": "node scripts/run-tests.cjs --headed --case",
+    "progress": "node scripts/progress.cjs"
+  },
+  "devDependencies": {
+    "@playwright/mcp": "0.0.80",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.4.1",
+    "typescript": "7.0.2"
+  }
+}

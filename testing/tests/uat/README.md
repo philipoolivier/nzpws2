@@ -1,0 +1,1 @@
+Create U01.spec.cjs here with Copilot after observing and agreeing the outcome. Then add U02.spec.cjs through U06.spec.cjs. No executable tests are supplied at the participant starting point. Use npm run progress from the package root.

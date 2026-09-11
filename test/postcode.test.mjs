@@ -6,6 +6,6 @@ test('formats a postcode with its leading zero', () => {
 	assert.equal(formatPostcode(247), '0247');
 });
 
-test('recognizes a four-digit postcode', () => {
+test('recognises a four-digit postcode', () => {
 	assert.equal(isPostcode('0247'), true);
 });
